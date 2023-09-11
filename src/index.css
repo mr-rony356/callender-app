@@ -1,0 +1,133 @@
+
+html,
+body,
+body > div { /* the react root */
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+h2 {
+  margin: 0;
+  font-size: 16px;
+}
+
+ul {
+  margin: 0;
+  padding: 0 0 0 1.5em;
+}
+
+li {
+  margin: 1.5em 0;
+  padding: 0;
+}
+
+b { /* used for event dates/times */
+  margin-right: 3px;
+}
+
+.demo-app {
+  display: flex;
+  min-height: 100%;
+  font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+  font-size: 14px;
+
+}
+
+.demo-app-sidebar {
+  width: 300px;
+  line-height: 1.5;
+  border-right: 1px solid #d3e2e8;
+}
+
+.demo-app-sidebar-section {
+  padding: 2em;
+}
+
+.demo-app-main {
+  flex-grow: 1;
+  padding: 3em;
+  position: relative !important;
+
+}
+
+.fc { /* the calendar root */
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.left{
+  width: 70%;
+  padding: 0 50px ;
+}
+.app{
+  width: 60%;
+}
+.left .card div{
+  padding: 20px;
+  background-color: aliceblue;
+  border: 1px dotted gray;
+}
+/* styles.css (or your preferred CSS file) */
+
+.overlay {
+  display: none;
+  position: absolute;
+  top: 0;
+  color: white;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.overlay.open {
+  display: flex;
+}
+
+.overlay-content {
+  background-color: #1e7adb;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 650px;
+  width: 100%;
+  text-align: center;
+}
+
+.overlay h2 {
+  font-size:12px;
+  margin-bottom: 10px;
+}
+
+.overlay label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 10px;
+  text-align: left;
+}
+
+.overlay input[type="text"],
+.overlay input[type="datetime-local"],
+.overlay input[type="number"] {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.overlay button {
+  background-color: #ffffff;
+  color: rgb(58, 121, 246);
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.overlay button:hover {
+  background-color: #000000;
+  color: white;
+}
