@@ -1,48 +1,86 @@
-// Left.js
-import React from 'react';
+// Sample JSON data
 
-export default class Left extends React.Component {
-    state = {
-        eventData: this.props.eventData, // Initialize the state with eventData prop
-      };
+// Left.js Component
+import React, { useState, useEffect } from 'react';
+import './index.css';
 
-  componentDidMount() {
-    // Load data from local storage when the component mounts
-    const loadedData = this.loadDataFromLocalStorage();
-    this.setState({ eventData: loadedData });
-  }
+const Left = ({ eventData }) => {
+  const [sortedEvents, setSortedEvents] = useState([]);
+  const [selectedEvent, setSelectedEvent] = useState(null);
 
-  loadDataFromLocalStorage = () => {
-    try {
-      // Retrieve data from local storage
-      const data = JSON.parse(localStorage.getItem('eventData')) || [];
-      return data;
-    } catch (error) {
-      console.error('Error loading data from local storage:', error);
-      return [];
-    }
+  useEffect(() => {
+    const now = new Date();
+    const sorted = [...eventData];
+
+    sorted.sort((a, b) => {
+      const timeDiffA = Math.abs(new Date(a.startDateTime) - now);
+      const timeDiffB = Math.abs(new Date(b.startDateTime) - now);
+      return timeDiffA - timeDiffB;
+    });
+
+    setSortedEvents(sorted);
+    setSelectedEvent(sorted[0] ? sorted[0].type : null);
+  }, [eventData]);
+
+  const handleEventClick = (index) => {
+    setSelectedEvent(sortedEvents[index].type);
   };
 
-  render() {
-    const { eventData } = this.props; // Use eventData from props
-
-    return (
-      <div className='demo-app-sidebar'>
-        <div className='demo-app-sidebar-section'>
-          <div className="left">
-            <div className="card">
-              {eventData.map((event, index) => (
-                <div key={index}>
-                  <b>{event.username}</b>
-                  <span>{event.startDatetime}</span>
-                  <i>{event.title}</i>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-        {/* ...other content in your Left component */}
+  return (
+    <div className="left-panel">
+      <div className="event">
+        <h2>Event List</h2>
       </div>
-    );
-  }
-}
+      <div className="event-list">
+        {eventData.map((event, index) => {
+          const startTime = new Date(event.startDateTime);
+          const endTime = new Date(startTime.getTime() + parseFloat(event.duration) * 60 * 60 * 1000);
+          const formattedStartTime = startTime.toLocaleTimeString([], {
+            hour: 'numeric',
+            minute: '2-digit',
+            hour12: true,
+          });
+          const formattedEndTime = endTime.toLocaleTimeString([], {
+            hour: 'numeric',
+            minute: '2-digit',
+            hour12: true,
+          });
+
+          const isSelected = selectedEvent === event.type;
+          let borderStyle = '';
+
+          if (index === 0) {
+            borderStyle = '10px solid green'; // Closest event
+          } else if (index === 1) {
+            borderStyle = '10px solid orange'; // Less closest event
+          } else {
+            borderStyle = '10px solid blue'; // All other events
+          }
+
+          return (
+            <div
+              key={index}
+              className={`card ${isSelected ? 'selected' : ''}`}
+              style={{ borderLeft: borderStyle }}
+              onClick={() => handleEventClick(index)}
+            >
+              <div className="bd-left">
+                <span>{formattedStartTime}</span> - <span> {formattedEndTime}</span>
+              </div>
+              <span>{event.title}</span> <span> {event.duration} hours</span>
+            </div>
+          );
+        })}
+      </div>
+      {selectedEvent !== null && (
+        <div className="selected-event">
+          <h3>{eventData.find((event) => event.type === selectedEvent).title}</h3>
+          <p>Start Time: {eventData.find((event) => event.type === selectedEvent).startDateTime}</p>
+          <p>Duration: {eventData.find((event) => event.type === selectedEvent).duration} hours</p>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Left;
