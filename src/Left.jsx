@@ -1,84 +1,104 @@
-// Sample JSON data
-
-// Left.js Component
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './index.css';
 
-const Left = ({ eventData }) => {
-  const [sortedEvents, setSortedEvents] = useState([]);
-  const [selectedEvent, setSelectedEvent] = useState(null);
-
-  useEffect(() => {
-    const now = new Date();
-    const sorted = [...eventData];
-
-    sorted.sort((a, b) => {
-      const timeDiffA = Math.abs(new Date(a.startDateTime) - now);
-      const timeDiffB = Math.abs(new Date(b.startDateTime) - now);
-      return timeDiffA - timeDiffB;
-    });
-
-    setSortedEvents(sorted);
-    setSelectedEvent(sorted[0] ? sorted[0].type : null);
-  }, [eventData]);
-
-  const handleEventClick = (index) => {
-    setSelectedEvent(sortedEvents[index].type);
+// Function to categorize events based on duration
+const categorizeEvents = (events) => {
+  const categories = {
+    longest: [],
+    medium: [],
+    lowest: [],
   };
+console.log(categories);
+  events.forEach((event) => {
+    if (event.duration >= 1) {
+      categories.longest.push(event);
+    } else if (event.duration <= 1 && event.duration >=.5) {
+      categories.medium.push(event);
+    } else if  (event.duration <= .5)  {
+      categories.lowest.push(event);
+    }
+  });
 
+  return categories;
+};
+
+const Left = ({ demoData }) => {
+  // Additional events to be added
+  const additionalEvents = [
+    {
+      type: "4",
+      category: "Tech",
+      startDateTime: "2023-09-12T19:30:00Z",
+      duration: '1',
+      title: "Tech Seminar",
+      meta1: "Location: Virtual",
+      meta2: "Speaker: Jane Doe",
+    },
+    {
+      type: "5",
+      category: "Design",
+      startDateTime: "2023-09-15T09:45:00Z",
+      duration: '.75',
+      title: "Design Discussion",
+      meta1: "Location: Studio Y",
+      meta2: "Instructor: John Smith",
+    },
+  ];
+
+  // Combine existing demoData with additional events
+  const allEvents = [...demoData, ...additionalEvents];
+
+  // Sort all events by duration in descending order to find the longest event
+  const sortedAllEvents = [...allEvents].sort((a, b) => b.duration - a.duration);
+  console.log(sortedAllEvents);
+
+  // Categorize all events based on duration
+  const categorizedEvents = categorizeEvents(sortedAllEvents);
+  console.log(categorizedEvents);
+  const longestEvents = sortedAllEvents.filter((event) => event.duration >= 1);
   return (
     <div className="left-panel">
-      <div className="event">
-        <h2>Event List</h2>
+      {/* Timeline for displaying hours */}
+      <div className="timeline">
+        {Array.from({ length: 24 }, (_, hour) => (
+          <div key={hour} className="timeline-hour">
+            {hour < 10 ? `0${hour}:00` : `${hour}:00`}
+          </div>
+        ))}
       </div>
-      <div className="event-list">
-        {eventData.map((event, index) => {
-          const startTime = new Date(event.startDateTime);
-          const endTime = new Date(startTime.getTime() + parseFloat(event.duration) * 60 * 60 * 1000);
-          const formattedStartTime = startTime.toLocaleTimeString([], {
-            hour: 'numeric',
-            minute: '2-digit',
-            hour12: true,
-          });
-          const formattedEndTime = endTime.toLocaleTimeString([], {
-            hour: 'numeric',
-            minute: '2-digit',
-            hour12: true,
-          });
 
-          const isSelected = selectedEvent === event.type;
-          let borderStyle = '';
-
-          if (index === 0) {
-            borderStyle = '10px solid green'; // Closest event
-          } else if (index === 1) {
-            borderStyle = '10px solid orange'; // Less closest event
-          } else {
-            borderStyle = '10px solid blue'; // All other events
-          }
-
-          return (
-            <div
-              key={index}
-              className={`card ${isSelected ? 'selected' : ''}`}
-              style={{ borderLeft: borderStyle }}
-              onClick={() => handleEventClick(index)}
-            >
-              <div className="bd-left">
-                <span>{formattedStartTime}</span> - <span> {formattedEndTime}</span>
+      {/* Container for events */}
+      <div className="events">
+        {Object.keys(categorizedEvents).map((category) => (
+          <div key={category} className={`event-category event-${category}`}>
+            {categorizedEvents[category].map((event) => (
+              <div
+                key={event.type}
+                className={`event ${longestEvents.includes(event) ? 'longest-event' : ''}  event-${category}`} // Add different class names for each event and category
+                style={{
+                  height: `${event.duration * 26.8}px`,
+                  top: `${(new Date(event.startDateTime).getHours() + new Date(event.startDateTime).getMinutes() / 60) * 27}px`,
+                }}
+              >
+                {/* Display event time */}
+                <div className="event-time">
+                  {longestEvents.includes(event)
+                    ? `${new Date(event.startDateTime).toLocaleTimeString([], {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      })} - ${new Date(
+                        new Date(event.startDateTime).getTime() + event.duration * 60 * 60 * 1000
+                      ).toLocaleTimeString([], {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      })}`
+                    : null}
+                </div>
               </div>
-              <span>{event.title}</span> <span> {event.duration} hours</span>
-            </div>
-          );
-        })}
+            ))}
+          </div>
+        ))}
       </div>
-      {selectedEvent !== null && (
-        <div className="selected-event">
-          <h3>{eventData.find((event) => event.type === selectedEvent).title}</h3>
-          <p>Start Time: {eventData.find((event) => event.type === selectedEvent).startDateTime}</p>
-          <p>Duration: {eventData.find((event) => event.type === selectedEvent).duration} hours</p>
-        </div>
-      )}
     </div>
   );
 };

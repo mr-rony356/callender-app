@@ -8,36 +8,37 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { INITIAL_EVENTS, createEventId } from './event-utils';
 import Left from './Left'; // Import the Left component
 import Overlay from './Overlay'; // Import the Overlay component
-const es = [
-  {
-    type: "1",
-    category: "Tech",
-    startDateTime: "2023-09-12T10:00:00Z",
-    duration: " 2 ",
-    title: "Tech Conference",
-    meta1: "Location: Virtual",
-    meta2: "Speaker: John Doe",
-  },
+const demoData = [
+ 
   {
     type: "2",
     category: "Design",
-    startDateTime: "2023-09-15T14:30:00Z",
-    duration: " 1.5 ",
+    startDateTime: "2023-09-15T12:15:00Z",
+    duration: " .05 ",
     title: "Design Workshop",
     meta1: "Location: Studio X",
     meta2: "Instructor: Jane Smith",
-  },{
+  },
+  {
     type: "3",
     category: "dev",
-    startDateTime: "2023-09-15T14:10:00Z",
-    duration: " 2.5 ",
+    startDateTime: "2023-09-15T12:20:00Z",
+    duration: " 2 ",
     title: " Workshop",
     meta1: "Location: Studio X",
     meta2: "Instructor: Jane Smith",
   },
+  {
+    type: "1",
+    category: "Tech",
+    startDateTime: "2023-09-12T12:00:00Z",
+    duration: " .5 ",
+    title: "Tech Conference",
+    meta1: "Location: Virtual",
+    meta2: "Speaker: John Doe",
+  },
   // Add more events here
 ];
-
 export default class Right extends React.Component {
   
   state = {
@@ -234,7 +235,7 @@ console.log('Updated End Time:', formattedEndTime);
     return (
       <div className='demo-app'>
         {/* Render the Left component */}
-        <Left currentEvents={this.state.currentEvents} eventData={es} />
+        <Left currentEvents={this.state.currentEvents} demoData={demoData} />
         <div className='demo-app-main'>
           <FullCalendar
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
