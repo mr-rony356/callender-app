@@ -8,13 +8,13 @@ const categorizeEvents = (events) => {
     medium: [],
     lowest: [],
   };
-console.log(categories);
+  console.log(categories);
   events.forEach((event) => {
-    if (event.duration >= 1) {
+    if (event.type == 1) {
       categories.longest.push(event);
-    } else if (event.duration <= 1 && event.duration >=.5) {
+    } else if (event.type ==2) {
       categories.medium.push(event);
-    } else if  (event.duration <= .5)  {
+    } else if (event.type == 3) {
       categories.lowest.push(event);
     }
   });
@@ -26,7 +26,7 @@ const Left = ({ demoData }) => {
   // Additional events to be added
   const additionalEvents = [
     {
-      type: "4",
+      type: "1",
       category: "Tech",
       startDateTime: "2023-09-12T19:30:00Z",
       duration: '1',
@@ -35,9 +35,9 @@ const Left = ({ demoData }) => {
       meta2: "Speaker: Jane Doe",
     },
     {
-      type: "5",
+      type: "2",
       category: "Design",
-      startDateTime: "2023-09-15T09:45:00Z",
+      startDateTime: "2023-09-15T19:45:00Z",
       duration: '.75',
       title: "Design Discussion",
       meta1: "Location: Studio Y",
@@ -73,26 +73,49 @@ const Left = ({ demoData }) => {
           <div key={category} className={`event-category event-${category}`}>
             {categorizedEvents[category].map((event) => (
               <div
-                key={event.type}
-                className={`event ${longestEvents.includes(event) ? 'longest-event' : ''}  event-${category}`} // Add different class names for each event and category
+                key={event.title}
+                className={`event ${longestEvents.includes(event) ? 'longest-event' : 'hover'}  event-${category}`} // Add different class names for each event and category
                 style={{
                   height: `${event.duration * 26.8}px`,
-                  top: `${(new Date(event.startDateTime).getHours() + new Date(event.startDateTime).getMinutes() / 60) * 27}px`,
+                  top: `${(new Date(event.startDateTime).getHours() + new Date(event.startDateTime).getMinutes() / 60) * 27.5}px`,
                 }}
               >
                 {/* Display event time */}
+
                 <div className="event-time">
+                  {longestEvents.includes(event) ? (
+                    <p className="event-title">{event.title}</p>
+
+                  ) : null}
+
                   {longestEvents.includes(event)
-                    ? `${new Date(event.startDateTime).toLocaleTimeString([], {
+                    ? `
+                    ${new Date(event.startDateTime).toLocaleTimeString([], {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })} - ${new Date(
+                      new Date(event.startDateTime).getTime() + event.duration * 60 * 60 * 1000
+                    ).toLocaleTimeString([], {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })} `
+                    : (<div className="event-info">
+
+                      <h4 className="event-title">{event.title}</h4>
+
+                      {new Date(event.startDateTime).toLocaleTimeString([], {
                         hour: '2-digit',
                         minute: '2-digit',
-                      })} - ${new Date(
+                      })} - {new Date(
                         new Date(event.startDateTime).getTime() + event.duration * 60 * 60 * 1000
                       ).toLocaleTimeString([], {
                         hour: '2-digit',
                         minute: '2-digit',
-                      })}`
-                    : null}
+                      })}
+
+
+                    </div>)
+                  }
                 </div>
               </div>
             ))}

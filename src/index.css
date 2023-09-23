@@ -1,4 +1,4 @@
-
+/* Reset default margin and padding for HTML and body elements */
 html,
 body,
 body > div { /* the react root */
@@ -7,80 +7,101 @@ body > div { /* the react root */
   height: 100%;
 }
 
+/* Reset margin, box-sizing, and padding for all elements */
+* {
+  margin: 0;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+/* Style for H2 elements */
 h2 {
   margin: 0;
   font-size: 16px;
 }
 
+/* Style for unordered lists */
 ul {
   margin: 0;
   padding: 0 0 0 1.5em;
 }
 
+/* Style for list items */
 li {
   margin: 1.5em 0;
   padding: 0;
 }
 
-b { /* used for event dates/times */
+/* Style for the "b" element used for event dates/times */
+b {
   margin-right: 3px;
 }
 
+/* Style for the main container of the demo app */
 .demo-app {
   display: flex;
   min-height: 100%;
   font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
   font-size: 14px;
-
 }
 
+/* Style for the sidebar of the demo app */
 .demo-app-sidebar {
   width: 300px;
   line-height: 1.5;
   border-right: 1px solid #d3e2e8;
 }
 
+/* Style for sections within the sidebar */
 .demo-app-sidebar-section {
   padding: 2em;
 }
 
+/* Style for the main content area of the demo app */
 .demo-app-main {
   flex-grow: 1;
   padding: 3em;
   position: relative !important;
-
 }
 
+/* Style for the full calendar (fc) component */
 .fc { /* the calendar root */
   max-width: 1100px;
   margin: 0 auto;
 }
-.left-panel{
+
+/* Style for the left panel containing the timeline and events */
+.left-panel {
   width: 35%;
   display: flex;
-
 }
-.left{
+
+/* Style for the left content container */
+.left {
   max-width: 400px !important;
-
-
 }
-.card{
+
+/* Style for individual event cards */
+.card {
   border-left: blue 5px solid;
-
 }
-.left span{
+
+/* Style for spans within the left content */
+.left span {
   padding: 5px;
 }
 
-.app{
+/* Style for the "app" container */
+.app {
   width: 60%;
 }
-.left .card div{
+
+/* Style for div elements within event cards */
+.left .card div {
   padding: 20px;
 }
-/* styles.css (or your preferred CSS file) */
 
+/* Style for the overlay container */
 .overlay {
   display: none;
   position: absolute;
@@ -92,13 +113,14 @@ b { /* used for event dates/times */
   height: 100%;
   justify-content: center;
   align-items: center;
-  
 }
 
+/* Style for the open overlay container */
 .overlay.open {
   display: flex;
 }
 
+/* Style for the overlay content container */
 .overlay-content {
   background-color: #1e7adb;
   padding: 10px;
@@ -109,11 +131,13 @@ b { /* used for event dates/times */
   text-align: center;
 }
 
+/* Style for h2 elements within the overlay */
 .overlay h2 {
-  font-size:12px;
+  font-size: 12px;
   margin-bottom: 10px;
 }
 
+/* Style for label elements within the overlay */
 .overlay label {
   display: block;
   margin-bottom: 5px;
@@ -121,6 +145,7 @@ b { /* used for event dates/times */
   text-align: left;
 }
 
+/* Style for input elements within the overlay */
 .overlay input[type="text"],
 .overlay input[type="datetime-local"],
 .overlay input[type="number"] {
@@ -131,6 +156,7 @@ b { /* used for event dates/times */
   border-radius: 5px;
 }
 
+/* Style for buttons within the overlay */
 .overlay button {
   background-color: #ffffff;
   color: rgb(58, 121, 246);
@@ -140,10 +166,13 @@ b { /* used for event dates/times */
   cursor: pointer;
 }
 
+/* Style for buttons on hover within the overlay */
 .overlay button:hover {
   background-color: #000000;
   color: white;
 }
+
+/* Style for individual event cards */
 .card {
   padding: 10px;
   margin: 5px;
@@ -155,13 +184,16 @@ b { /* used for event dates/times */
   margin: 20px;
   display: flex;
 }
+
+/* Style for the left panel containing the timeline and events */
 .left-panel {
-  margin: 50px ;
+  margin: 50px;
   display: flex;
   align-items: flex-start;
   flex-direction: row-reverse;
 }
 
+/* Style for the timeline */
 .timeline {
   width: 80px; /* Adjust as needed */
   border-left: 1px dotted #353434;
@@ -171,10 +203,12 @@ b { /* used for event dates/times */
   align-items: flex-end; /* Align timeline on the right side */
 }
 
+/* Style for individual timeline hours */
 .timeline-hour {
   padding: 5px 0;
 }
 
+/* Style for the events container */
 .events {
   flex: 1;
   display: flex;
@@ -183,46 +217,78 @@ b { /* used for event dates/times */
   padding-left: 10px;
   color: white;
   position: relative;
-
 }
 
+/* Style for individual events */
 .event {
   padding: 5px;
   position: absolute;
   font-size: 15px;
+  right: 0;
+  color: black;
   display: flex;
   align-items: center;
   margin-bottom: 10px;
 }
 
-.event-title {
-}
-
+/* Style for event times */
 .event-time {
+  font-size: 12px;
 }
 
+/* Style for event times within paragraphs */
+.event-time p {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Style for event meta information */
 .event-meta {
   font-size: 0.8rem;
 }
-/* Define different colors for each event class */
+
+/* Style for the longest events */
 .event-longest {
-  border-left:5px solid blue ;
+  border-left: 5px solid rgb(42, 110, 245);
 }
 
+/* Style for medium duration events */
 .event-medium {
-  border-left:5px solid orange ;
+  border-left: 5px solid orange;
   left: 50px;
-
 }
 
+/* Style for lowest duration events */
 .event-lowest {
-  border-left:5px solid green ;
+  border-left: 5px solid green;
   left: 0;
-
 }
 
-/* Other CSS styles remain the same as previously mentioned for event styling */
+/* Style for the longest event when hovered */
 .longest-event {
   background-color: aliceblue;
   color: black;
+}
+
+/* Styles for all events on hover */
+.event:hover .event-info {
+  display: block;
+}
+
+/* Style for the hover effect */
+.hover {
+  max-width: 20px;
+  cursor: pointer;
+}
+
+/* Style for the event info container */
+.event-info {
+  display: none;
+  background-color: rgba(0, 0, 0, 0.8); /* Background color for info */
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  min-width: 150px !important;
+  font-size: 12px;
+  z-index: 1; /* Ensure it's above other elements */
 }
