@@ -30,8 +30,8 @@ const Left = ({ demoData }) => {
     {
       type: "1",
       category: "Tech",
-      startDateTime: "2023-09-12T19:30:00Z",
-      duration: '1',
+      startDateTime: "2023-09-12T20:30:00Z",
+      duration: '1.5',
       title: "Tech Seminar",
       meta1: "Location: Virtual",
       meta2: "Speaker: Jane Doe",

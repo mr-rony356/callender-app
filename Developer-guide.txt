@@ -11,10 +11,12 @@ To run the Calendar App locally  follow these steps:
 
 
 APP.jsx:
+
 The main component in this code is App, which represents the root component of your React application. It renders two child components, Left and Right.
 
 
- Understanding and Using the Left Component
+
+Understanding and Using the Left Component
 
 The Left component is responsible for rendering a timeline and a list of events categorized by their duration. It also combines additional events with the existing demoData and calculates the longest events.
 
@@ -43,6 +45,7 @@ Step 6: Rendering Events
 Inside the event categories, events are mapped and rendered. The code generates event elements with varying heights and positions based on their duration and startDateTime properties.
 
 Event information, including title, time, and additional details, is displayed within each event element.
+
 
 
 Understanding and Using the Right Component
@@ -91,3 +94,50 @@ The Right component integrates FullCalendar by rendering it within a div element
 Step 8: Custom Event Content Rendering
 The renderEventContent function is responsible for rendering custom event content within FullCalendar events.
 
+
+
+ Guide for using  event-utils.js :
+
+ It  used for generating initial event data for your FullCalendar component and creating unique event IDs. Here's an explanation of what this module does:
+
+eventGuid: This variable is used to generate unique event IDs. It starts at 0 and increments each time a new event ID is generated.
+
+todayStr: This variable stores the current date in the format "YYYY-MM-DD." It is used to set the start and end dates for the initial event.
+
+INITIAL_EVENTS: This is an array of initial event data. It contains one event with the following properties:
+
+id: A unique event ID generated using the createEventId function.
+title: The title of the event, which is set to 'Coding event'.
+start: The start date and time of the event, set to today's date at 01:00:00 (1:00 AM).
+end: The end date and time of the event, set to today's date at 01:30:00 (1:30 AM).
+createEventId(): This function generates a unique event ID by converting the eventGuid variable to a string and returning it. It also increments the eventGuid for the next event ID generation.
+
+This module provides the initial event data and a way to create unique event IDs, which can be used when initializing and managing events in your FullCalendar component.
+
+
+The Overlay.js
+
+Its   a simple overlay component used for collecting user input (in this case, a title) and confirming the input.
+ Here's an explanation  functionality:
+
+Component Structure
+The Overlay component is a functional component that takes three props:
+
+isOpen: A boolean that determines whether the overlay is open or closed.
+onClose: A callback function to close the overlay.
+onConfirm: A callback function to confirm and pass the collected data.
+Component State
+title: This component uses the useState hook to manage the title state. It represents the user input for the event title.
+Handling User Input
+<input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />: This input element allows the user to enter a title. The value attribute is bound to the title state, which means it displays the current value of title. The onChange event handler updates the title state as the user types.
+Handling Form Submission
+handleSubmit: This function is called when the user clicks the "Confirm" button. It performs any necessary validation (which is currently commented out) and then calls the onConfirm callback with the collected title data. Afterward, it clears the title input field, and finally, it closes the overlay by calling the onClose callback.
+Rendering
+{isOpen ? 'open' : ''}: The overlay class is conditionally added to the div element based on the value of the isOpen prop. If isOpen is true, the open class is added to make the overlay visible.
+
+The input element allows users to enter a title.
+
+The "Confirm" button triggers the handleSubmit function when clicked.
+
+Usage
+You can use this Overlay component to collect a title from the user and then pass it to the parent component when the user confirms. The isOpen prop controls the visibility of the overlay, onClose is used to close the overlay, and onConfirm is used to handle the confirmed data.
