@@ -1,0 +1,93 @@
+To run the Calendar App locally  follow these steps:
+
+1. **Clone the Repository:** Clone this repository to your local machine using `git clone`.
+
+2. **Install Dependencies:** Navigate to the project directory and install the necessary dependencies by running `npm install`.
+
+3. **Start the Development Server:** Launch the development server with `npm start`. This will start the app in your default web browser.
+
+4. **Explore and Customize:** You can now explore the app, add events, and customize the code to suit your requirements.
+
+
+
+APP.jsx:
+The main component in this code is App, which represents the root component of your React application. It renders two child components, Left and Right.
+
+
+ Understanding and Using the Left Component
+
+The Left component is responsible for rendering a timeline and a list of events categorized by their duration. It also combines additional events with the existing demoData and calculates the longest events.
+
+Here's an overview of the Left component's structure:
+
+Step 1: Importing Constants
+import { EVENT_HEIGHT_MULTIPLIER, EVENT_TOP_MULTIPLIER } from './constants';: This line imports constants used in your component from a file named constants.js. Ensure that this file exists in the same directory as your Left.js component.
+
+Step 2: Categorizing Events
+The categorizeEvents function is used to categorize events into three types (type1, type2, type3) based on their type property. It takes an array of events as input and returns an object containing categorized arrays.
+
+Step 3: Combining Events
+additionalEvents: This array contains additional event data that you want to combine with the existing demoData array. You can add or modify events in this array as needed.
+
+allEvents: This line combines demoData and additionalEvents into a single array, allEvents, which is used for further processing.
+
+Step 4: Sorting Events
+sortedAllEvents: This line creates a sorted copy of allEvents based on event duration in descending order. The longest events will be at the beginning of the array.
+
+Step 5: Rendering the Timeline
+<div className="timeline">: This div element is used to render a timeline that displays hours. It uses a loop to generate 24 hours from 00:00 to 23:00.
+
+Step 6: Rendering Events
+<div className="events">: This div element is the container for rendering categorized events. It uses Object.keys(categorizedEvents) to iterate over the event categories (type1, type2, type3).
+
+Inside the event categories, events are mapped and rendered. The code generates event elements with varying heights and positions based on their duration and startDateTime properties.
+
+Event information, including title, time, and additional details, is displayed within each event element.
+
+
+Understanding and Using the Right Component
+
+The Right component appears to be responsible for rendering a FullCalendar component, managing events, and handling interactions with events and overlays.
+ Below is an overview  of its  functionality:
+
+ Step 1: Component Structure
+The Right component is a class-based component that renders a FullCalendar component and manages the state related to events and overlays.
+
+Step 2: Importing Dependencies
+The component imports various dependencies related to FullCalendar, including plugins like dayGridPlugin, timeGridPlugin, and interactionPlugin. Make sure to have these dependencies installed in your project.
+
+Step 3: Component State
+The Right component maintains the following state variables:
+
+currentEvents: An array to store the current events being displayed.
+isOverlayOpen: A boolean flag to track whether the overlay is open or closed.
+selectedCellInfo: An object that stores information about the selected calendar cell.
+eventData: An array to store event data loaded from local storage.
+collectedTitle: A string to store the collected event title.
+isTitleCollected: A boolean flag to track whether the event title has been collected.
+
+Step 4: Component Lifecycle (componentDidMount)
+In the componentDidMount lifecycle method, data is loaded from local storage, and it's used to initialize the initialEvents array. This array is then set as INITIAL_EVENTS in the component's state.
+
+Step 5: Event Handling
+handleDateSelect: This function handles date selection in the FullCalendar. It sets the selected cell information, including start and end times, and opens the overlay. If the title has already been collected, it creates a new event and saves it to local storage.
+
+handleOverlayConfirm: This function is called when the user confirms the overlay content. It collects data, calculates event duration, creates an event object, saves it to local storage, and updates the state.
+
+handleEventChange: This function handles changes to an existing event, such as its start and end times. It calculates the updated duration, updates the event data, and saves it to local storage.
+
+handleEventClick: This function handles event click events and allows users to delete events with confirmation.
+
+handleEvents: This function updates the state with the current events being displayed in FullCalendar.
+
+Step 6: Local Storage Functions
+loadDataFromLocalStorage: This function loads event data from local storage and returns it as an array.
+
+saveDataToLocalStorage: This function saves event data to local storage, adding new data to the existing data if it exists.
+
+Step 7: FullCalendar Integration
+The Right component integrates FullCalendar by rendering it within a div element. It sets up various FullCalendar options, including plugins, views, event handling, and header toolbar configuration. Additionally, it renders the Overlay component when needed.
+
+Step 8: Custom Event Content Rendering
+The renderEventContent function is responsible for rendering custom event content within FullCalendar events.
+

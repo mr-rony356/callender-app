@@ -248,18 +248,18 @@ b {
 }
 
 /* Style for the longest events */
-.event-longest {
+.event-type1 {
   border-left: 5px solid rgb(42, 110, 245);
 }
 
 /* Style for medium duration events */
-.event-medium {
+.event-type2 {
   border-left: 5px solid orange;
   left: 50px;
 }
 
 /* Style for lowest duration events */
-.event-lowest {
+.event-type3 {
   border-left: 5px solid green;
   left: 0;
 }

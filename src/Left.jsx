@@ -1,21 +1,23 @@
 import React from 'react';
 import './index.css';
+import { EVENT_HEIGHT_MULTIPLIER, EVENT_TOP_MULTIPLIER } from './constants'; // Import constants
 
 // Function to categorize events based on duration
 const categorizeEvents = (events) => {
   const categories = {
-    longest: [],
-    medium: [],
-    lowest: [],
+    type1: [],
+    type2: [],
+    type3: [],
   };
   console.log(categories);
+
   events.forEach((event) => {
     if (event.type == 1) {
-      categories.longest.push(event);
+      categories.type1.push(event);
     } else if (event.type ==2) {
-      categories.medium.push(event);
+      categories.type2.push(event);
     } else if (event.type == 3) {
-      categories.lowest.push(event);
+      categories.type3.push(event);
     }
   });
 
@@ -60,7 +62,7 @@ const Left = ({ demoData }) => {
     <div className="left-panel">
       {/* Timeline for displaying hours */}
       <div className="timeline">
-        {Array.from({ length: 24 }, (_, hour) => (
+        {Array.from({ length: 24 }, (_,hour) => (
           <div key={hour} className="timeline-hour">
             {hour < 10 ? `0${hour}:00` : `${hour}:00`}
           </div>
@@ -76,11 +78,12 @@ const Left = ({ demoData }) => {
                 key={event.title}
                 className={`event ${longestEvents.includes(event) ? 'longest-event' : 'hover'}  event-${category}`} // Add different class names for each event and category
                 style={{
-                  height: `${event.duration * 26.8}px`,
-                  top: `${(new Date(event.startDateTime).getHours() + new Date(event.startDateTime).getMinutes() / 60) * 27.5}px`,
+                  height: `${event.duration * EVENT_HEIGHT_MULTIPLIER}px`,
+                  top: `${(new Date(event.startDateTime).getHours() + new Date(event.startDateTime).getMinutes() / 60) * EVENT_TOP_MULTIPLIER}px`,
                 }}
               >
                 {/* Display event time */}
+                
 
                 <div className="event-time">
                   {longestEvents.includes(event) ? (
