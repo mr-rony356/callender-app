@@ -228,7 +228,6 @@ b {
   color: black;
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
 }
 
 /* Style for event times */
@@ -250,22 +249,30 @@ b {
 /* Style for the longest events */
 .event-type1 {
   border-left: 5px solid rgb(42, 110, 245);
+  right: 0;
+
+}
+.event-type4 {
+  border-left: 5px solid black;
+  left: 25%;
+
+
 }
 
 /* Style for medium duration events */
 .event-type2 {
   border-left: 5px solid orange;
-  left: 50px;
+  left: 55%;
 }
 
 /* Style for lowest duration events */
 .event-type3 {
   border-left: 5px solid green;
-  left: 0;
+  left: 40%;
 }
 
 /* Style for the longest event when hovered */
-.longest-event {
+.display-event {
   background-color: aliceblue;
   color: black;
 }
